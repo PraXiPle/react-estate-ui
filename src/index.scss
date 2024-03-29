@@ -15,8 +15,8 @@
   }
 
   /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #868585;
+  ::-webkit-scrollbar-thumb:active {
+    background: black;
   }
 }
 

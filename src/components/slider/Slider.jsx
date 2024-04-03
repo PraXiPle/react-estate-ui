@@ -2,64 +2,54 @@ import { useState } from "react";
 import "./slider.scss";
 
 function Slider({ images }) {
-  const [imgIndex, setIndexImg] = useState(null);
-  const changeSlideDir = (dir) => {
-    if (dir === "left") {
-      if (imgIndex === 0) {
-        setIndexImg(images.length - 1);
+  const [imageIndex, setImageIndex] = useState(null);
+
+  const changeSlide = (direction) => {
+    if (direction === "left") {
+      if (imageIndex === 0) {
+        setImageIndex(images.length - 1);
       } else {
-        setIndexImg(imgIndex - 1);
+        setImageIndex(imageIndex - 1);
       }
     } else {
-      if (imgIndex === images.length - 1) {
-        setIndexImg(0);
+      if (imageIndex === images.length - 1) {
+        setImageIndex(0);
       } else {
-        setIndexImg(imgIndex + 1);
+        setImageIndex(imageIndex + 1);
       }
     }
   };
+
   return (
     <div className="slider">
-      {imgIndex !== null && (
+      {imageIndex !== null && (
         <div className="fullSlider">
-          <div className="arrow" onClick={() => changeSlideDir("left")}>
+          <div className="arrow" onClick={() => changeSlide("left")}>
             <img src="/arrow.png" alt="" />
           </div>
           <div className="imgContainer">
-            <img
-              src={images[imgIndex]}
-              alt=""
-              onClick={() => setIndexImg(null)}
-            />
+            <img src={images[imageIndex]} alt="" />
           </div>
-          <div className="arrow">
-            <img
-              src="/arrow.png"
-              alt=""
-              className="right"
-              onClick={() => changeSlideDir("right")}
-            />
+          <div className="arrow" onClick={() => changeSlide("right")}>
+            <img src="/arrow.png" className="right" alt="" />
           </div>
-
-          <div className="close" onClick={() => setIndexImg(null)}>
+          <div className="close" onClick={() => setImageIndex(null)}>
             X
           </div>
         </div>
       )}
       <div className="bigImage">
-        <img src={images[0]} alt="" onClick={() => setIndexImg(0)} />
+        <img src={images[0]} alt="" onClick={() => setImageIndex(0)} />
       </div>
       <div className="smallImages">
-        {images.slice(1).map((image, index) => {
-          return (
-            <img
-              src={image}
-              alt=""
-              key={index}
-              onClick={() => setIndexImg(index + 1)}
-            />
-          );
-        })}
+        {images.slice(1).map((image, index) => (
+          <img
+            src={image}
+            alt=""
+            key={index}
+            onClick={() => setImageIndex(index + 1)}
+          />
+        ))}
       </div>
     </div>
   );
